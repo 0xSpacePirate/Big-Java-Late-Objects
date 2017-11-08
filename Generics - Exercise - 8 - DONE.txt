@@ -1,0 +1,27 @@
+public class Main {
+    public static void main(String[] args) {
+
+	List<Integer> aList = new ArrayList<>();
+        boolean b = Collections.addAll(aList,5,2,3,6,12,3,7,88,43,23,1,0);
+        SelectionSortClass selectionSortClass = new SelectionSortClass();
+        System.out.println(selectionSortClass.doSelectionSort(aList));
+
+	}
+}
+
+public class SelectionSortClass<T extends Number> {
+
+    //•• P 18.8 Implement a generic version of the selection sort algorithm.
+    public List<T> doSelectionSort(List<T> aList) {
+        for (int i = 0; i < aList.size() - 1; i++) {
+            for (int j = i + 1; j < aList.size(); j++) {
+                if(aList.get(j).doubleValue() < aList.get(i).doubleValue()) {
+                    T temp = aList.get(i);
+                    aList.set(i, aList.get(j));
+                    aList.set(j, temp);
+                }
+            }
+        }
+        return aList;
+    }
+}

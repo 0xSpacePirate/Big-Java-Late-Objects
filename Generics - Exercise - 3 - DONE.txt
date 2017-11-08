@@ -1,0 +1,36 @@
+
+public class Main {
+
+    public static void main(String[] args) {
+//•• P 18.3 Implement a static generic method PairUtil.swap whose argument is a Pair object,
+//                using the generic class declared in Section 18.2. The method should return a new
+//                pair, with the first and second element swapped.
+        Pair<String, Integer> result = new Pair<>("asd", 4);
+        System.out.println(result);
+        Pair<Integer, String> result1 = PairUtil.swap(result);
+        System.out.println(result1);
+    }
+
+}
+
+public class PairUtil {
+    public static <T, S> Pair<S, T> swap(Pair<T, S> p){
+        return new Pair<S, T>(p.getSecond(),p.getFirst());
+    }
+
+}
+
+
+public class Pair<T,S> {
+        private T first;
+        private S second;
+
+         public Pair(T firstElement, S secondElement) {
+             first = firstElement;
+             second = secondElement;
+         }
+
+        public T getFirst() { return first; }
+        public S getSecond() { return second; }
+        public String toString() { return "(" + first + ", " + second + ")"; }
+}

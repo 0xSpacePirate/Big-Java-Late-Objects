@@ -1,0 +1,33 @@
+public class Main {
+
+    public static void main(String[] args) {
+//        • P 18.2 Add a method swap to the Pair class of Exercise P18.1
+//        that swaps the first and second elements of the pair.
+        Pair<Integer> result = new Pair<>(4,44);
+        System.out.println(result.getFirst() + " - " + result.getSecond());
+        result.swapElements();
+    }
+
+}
+
+public class Pair<T> {
+        private T first;
+        private T second;
+
+         public Pair(T firstElement, T secondElement) {
+             first = firstElement;
+             second = secondElement;
+         }
+
+        public T getFirst() { return first; }
+        public T getSecond() { return second; }
+        public String toString() { return "(" + first + ", " + second + ")"; }
+
+        public void swapElements(){
+             T temp = this.first;
+             this.first = this.second;
+             this.second = temp;
+            System.out.println(this.first + " - " + this.second);
+        }
+
+}

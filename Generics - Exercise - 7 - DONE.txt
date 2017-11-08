@@ -1,0 +1,57 @@
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> aList = new ArrayList<>();
+        boolean b = Collections.addAll(aList,5,2,3,6,12,3,7,88,43,23,1,0);
+        BinarySearchClass binarySearchClass = new BinarySearchClass();
+        binarySearchClass.binarySearch(aList,88);
+	}
+}
+
+
+
+public class BinarySearchClass<T extends Number> {
+
+    import java.util.List;
+
+public class BinarySearchClass<T extends Number> {
+
+    //•• P 18.7 Implement a generic version of the binary search algorithm.
+    public void binarySearch(List<T> aList, T aKey) {
+        int low = 0;
+        int high = aList.size() - 1;
+        boolean found = false;
+
+        print(aList);
+        while (high >= low) {
+
+            int middle = (low + high) / 2;
+            if (aList.get(middle).doubleValue() == aKey.doubleValue()) {
+                found = true;
+                System.out.println(aList.get(middle).doubleValue() + " " + aKey.doubleValue());
+                break;
+            }
+            if (aList.get(middle).doubleValue() < aKey.doubleValue()) {
+                low++;
+            }
+            if (aList.get(middle).doubleValue() > aKey.doubleValue()) {
+                high--;
+            }
+        }
+
+        if(found){
+            System.out.println("\nIndex: " + aList.indexOf(aKey));
+        }else{
+            System.out.println("\n" + aKey + " not found!");
+        }
+
+    }
+
+    public void print(List<T> aList){
+        for(int i = 0; i < aList.size();i++){
+            System.out.print(aList.get(i) + " ");
+        }
+    }
+}
+

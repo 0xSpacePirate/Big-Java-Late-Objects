@@ -1,0 +1,26 @@
+public class Main {
+
+    public static void main(String[] args) {
+        Pair<Integer> result = new Pair<>(4,44);
+        System.out.println(result.getFirst());
+        System.out.println(result.getSecond());
+    }
+
+}
+
+
+public class Pair<T> {
+        private T first;
+        private T second;
+
+         public Pair(T firstElement, T secondElement) {
+             first = firstElement;
+             second = secondElement;
+         }
+
+        public T getFirst() { return first; }
+        public T getSecond() { return second; }
+
+        public String toString() { return "(" + first + ", " + second + ")"; }
+
+}

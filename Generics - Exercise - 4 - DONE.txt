@@ -1,0 +1,21 @@
+public class PairUtil {
+
+    public static <E extends Measurable> Pair<E,E> minMax(E[] p){
+        E highest = p[0];
+        E lowest = p[0];
+        for(int i = 0; i < p.length; i++){
+            if (p[i] < lowest.getMeasure()) {
+                lowest = p[i];
+            }
+            if(p[i] > highest.getMeasure()){
+                highest = p[i];
+            }
+        }
+        return new Pair<>(highest,lowest);
+    }
+
+    //•• P 18.4 Write a static generic method PairUtil.minMax that computes the minimum and maximum
+//        elements of an array of type T and returns a pair containing the minimum and
+//        maximum value. Require that the array elements implement the Measurable interface
+//        of Chapter 9.
+}

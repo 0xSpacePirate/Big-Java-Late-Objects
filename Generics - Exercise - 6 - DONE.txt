@@ -1,0 +1,15 @@
+public class PairUtil {
+    public static <E extends Comparable<? super E>> Pair<E,E> minMax(E[] p){
+        E highest = p[0];
+        E lowest = p[0];
+        for(int i = 0; i < p.length; i++){
+            if (p[i].compareTo(lowest) < 0) {
+                lowest = p[i];
+            }
+            if(p[i].compareTo(highest) > 0){
+                highest = p[i];
+            }
+        }
+        return new Pair<>(highest,lowest);
+    }
+}
