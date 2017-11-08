@@ -1,0 +1,31 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//        P14.1 Modify the selection sort algorithm to sort an array of integers in descending order.
+
+        int[] array = new int[10];
+
+        for(int i = 0; i < array.length; i++){
+            array[i] = (int) (Math.random() * 100);
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("\n-   -   -   -   -   -   -   -");
+
+        for(int i = 0; i < array.length - 1;i++){
+            for(int j = i + 1; j < array.length - 1; j++){
+                while(array[i] < array[j] ){
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+            System.out.print(array[i] + " ");
+        }
+    }
+}

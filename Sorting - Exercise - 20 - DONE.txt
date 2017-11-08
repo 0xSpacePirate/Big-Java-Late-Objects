@@ -1,0 +1,50 @@
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+import java.lang.Object;
+
+public class Main {
+    public static void main(String[] args) {
+
+//•• P14.20 Sort an array list of strings by increasing length. Hint: Supply a Comparator.
+
+        List<String> arrayList = new ArrayList<>();
+
+        arrayList.add("Z");arrayList.add("T");arrayList.add("E");arrayList.add("Y");
+        arrayList.add("R");arrayList.add("O");arrayList.add("A");arrayList.add("B");
+        arrayList.add("N");arrayList.add("M");arrayList.add("W");arrayList.add("Q");
+        arrayList.add("T");arrayList.add("Q");arrayList.add("X");arrayList.add("A");
+
+        System.out.println("- - - - -UNSORTED- - - - -");
+        printArray(arrayList);
+        System.out.println("\n- - - - - SORTED - - - - -");
+        Collections.sort(arrayList); // WORKING;
+        //Collections.sort(arrayList, new Sorting()); // NOT WORKING;
+        //arrayList.sort(new Sorting()); // NOT WORKING;
+        printArray(arrayList);
+
+    }
+
+    public static void printArray(List<String> array){
+        for(int i = 0; i < array.size(); i++){
+            System.out.print(array.get(i) + " ");
+        }
+    }
+}
+
+import java.util.Comparator;
+
+/**
+ * Created by Bonchev on 2/21/2017.
+ */
+public class Sorting implements Comparator<String> {
+	/** NOT A GOOD NAME FOR A CLASS! */
+    @Override
+    public int compare(String a, String b) {
+        int i = a.length() - b.length();
+        if(i < 0){return -1;}
+        else if(i > 0){return 1;}
+        else{return 0;}
+    }
+}

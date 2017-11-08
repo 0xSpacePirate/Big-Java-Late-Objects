@@ -1,0 +1,56 @@
+package com.bonche;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.lang.Object;
+
+
+public class Main {
+    public static void main(String[] args) {
+
+//        •• P14.8 Implement the algorithm described
+//        in Section 14.7.4, but only remember the value
+//        with the highest frequency so far:
+
+//            Count how often a[i] occurs in a[i + 1]...a[n - 1]
+//        If it occurs more often than highestFrequency
+//                highestFrequency = that count
+//                mostFrequent = a[i]
+
+        int[] a = new int[20];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = (int) (Math.random() * 10 + 1);
+            System.out.print(a[i] + " ");
+        }
+
+        System.out.println("\n- - - - - - - - - - - - - - - - - - - - - - -");
+
+        int mostFrequent = 0;
+        int highestFrequency = -1;
+
+        for (int i = 0; i < a.length; i++) {
+
+            int frequency = counter(a, a[i]);
+            if (frequency > highestFrequency) {
+                frequency = highestFrequency;
+                mostFrequent = a[i];
+            }
+        }
+
+        System.out.println("Most frequent: " + mostFrequent);
+    }
+
+    public static int counter(int[] array, int number) {
+        int frequency = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number) {
+                frequency++;
+            }
+        }
+        return frequency;
+    }
+}

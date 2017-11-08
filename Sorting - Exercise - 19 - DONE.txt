@@ -1,0 +1,80 @@
+package com.bonche;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Scanner;
+import java.lang.Object;
+
+
+
+public class Main {
+    public static void main(String[] args) {
+
+//• P14.19 Supply a class Person that implements the Comparable interface. Compare persons by
+//        their names. Ask the user to input ten names and generate ten Person objects. Using
+//        the compareTo method, determine and the first and last person among them and print
+//        them.
+
+        ArrayList<Person> people = new ArrayList<>();
+
+        /** It takes way too much time to input ten names every time I test the program */
+
+//        Scanner scanner = new Scanner(System.in);
+//        for(int i = 0; i < 10; i++){
+//            System.out.print("Person's name: ");
+//            String aPerson = scanner.next();
+//            people.add(new Person(aPerson));
+//            System.out.println((i + 1) + ". " + aPerson);
+//        }
+
+        people.add(new Person("G"));
+        people.add(new Person("R"));
+        people.add(new Person("Q"));
+        people.add(new Person("U"));
+        people.add(new Person("A"));
+        people.add(new Person("Y"));
+        people.add(new Person("Z"));
+        people.add(new Person("X"));
+        people.add(new Person("O"));
+        people.add(new Person("I"));
+
+        System.out.println("-UNSORTED-");
+        printArray(people);
+        Collections.sort(people);
+        System.out.println("-SORTED- ");
+        printArray(people);
+
+    }
+
+    public static void printArray(ArrayList<Person> array){
+        for(int i = 0; i < 10; i++) {
+            System.out.println((i + 1) + ". " + array.get(i).getName());
+        }
+    }
+}
+
+
+package com.bonche;
+
+/**
+ * Created by Bonchev on 2/20/2017.
+ */
+public class Person implements Comparable<Person> {
+
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public String getName() {return name;}
+
+    @Override
+    public int compareTo(Person obj) {
+        Person aPerson = (Person) obj;
+        return this.name.compareTo(aPerson.name);
+    }
+}

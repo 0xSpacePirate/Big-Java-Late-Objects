@@ -1,0 +1,40 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//      •• P14.3 Write a program that automatically generates the table of sample run times for the
+//        selection sort algorithm. The program should ask for the smallest and largest value
+//        of n and the number of measurements and then make all sample runs.
+
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Smallest value: ");
+        int min = scanner.nextInt();
+        System.out.print("Highest value: ");
+        int max = scanner.nextInt();
+        int[] array = new int[max];
+
+        for(int i = 0; i < max; i++){
+            array[i] = (int) (Math.random() * (max + 1 - min) + min);
+            System.out.print(array[i] + " ");
+        }
+
+        System.out.println("\n-   -   -   -   -   -   -");
+
+        for(int i = 0; i < array.length - 1; i++){
+            for(int j = i + 1; j < array.length - 1; j++){
+                while(array[i] > array[j]){
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+            System.out.print(array[i] + " ");
+        }
+    }
+}

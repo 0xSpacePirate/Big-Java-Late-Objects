@@ -1,0 +1,75 @@
+package com.bonche;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//• P14.4 Modify the merge sort algorithm to sort an array of strings in lexicographic order.
+
+        String[] words = {"F","H","B","D",
+                "E","G","A","I","C","J"};
+
+        String[] firstHalf = new String[words.length / 2];
+        String[] otherHalf = new String[words.length / 2];
+
+        System.out.println("= Unsorted =");
+        for(int i = 0; i < words.length / 2; i++){
+            firstHalf[i] = words[i];
+            System.out.print(firstHalf[i] + " ");
+        }
+        System.out.println("\n- - - - - -");
+        int count = 0;
+        for(int i = words.length / 2; i < words.length; i++){
+            otherHalf[count] = words[i];
+            System.out.print(otherHalf[count] + " ");
+            count++;
+        }
+
+        System.out.println("\n= Sorted = ");
+        sort(firstHalf);
+        System.out.println("\n- - - - - - ");
+        sort(otherHalf);
+        System.out.println("\n- - - - - - ");
+        mergeSort(firstHalf,otherHalf);
+
+    }
+
+    public static void sort(String[] array){
+        for(int i = 0; i < array.length; i++){
+            for(int j = i + 1; j < array.length; j++){
+                while(array[i].compareTo(array[j]) > 0){
+                    String temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+            System.out.print(array[i] + " ");
+        }
+    }
+
+    public static void mergeSort(String[] array, String[] arrayTwo){
+        int count = 0;
+        String[] mergedArray = new String[array.length + arrayTwo.length];
+        for(int i = 0; i < array.length; i++){
+            mergedArray[i] = array[count];
+            count++;
+        }
+
+        count = 0;
+        for(int i = mergedArray.length / 2; i < mergedArray.length; i++){
+            mergedArray[i] = arrayTwo[count];
+            count++;
+        }
+
+        for(int i = 0; i < mergedArray.length; i++){
+            for(int j = i + 1; j < mergedArray.length; j++){
+                while(mergedArray[i].compareTo(mergedArray[j]) > 0){
+                    String temp = mergedArray[i];
+                    mergedArray[i] = mergedArray[j];
+                    mergedArray[j] = temp;
+                }
+            }
+            System.out.print(mergedArray[i] + " ");
+        }
+    }
+}
