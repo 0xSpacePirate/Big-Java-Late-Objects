@@ -1,0 +1,62 @@
+
+import java.util.Stack;
+
+public class Main {
+
+    public static Stack<String> strings = new Stack<>();
+
+    public static void main(String[] args) {
+
+//        •• P 15.3 Use a stack to reverse the words of a sentence. Keep reading words until you have a
+//        word that ends in a period, adding them onto a stack. When you have a word with a
+//        period, pop the words off and print them. Stop when there are no more words in the
+//        input. For example, you should turn the input
+//        Mary had a little lamb. Its fleece was white as snow.
+//        into
+//        Lamb little a had mary. Snow as white was fleece its.
+//        Pay attention to capitalization and the placement of the period.
+
+        String aString = "Mary had a little lamb. Its fleece was white as snow.";
+        iterate(aString);
+
+
+    }
+
+    public static void iterate(String aString){
+        String output = "";
+        for(int i = 0; i < aString.length(); i++){
+            if(aString.charAt(i) == ' ' || aString.charAt(i) == '.'){
+                output = output.toLowerCase();
+                strings.push(output);
+                output = "";
+                if(aString.charAt(i) == '.'){
+                    while(!strings.isEmpty()){
+                        output += strings.pop() + " ";
+                    }
+                    System.out.print(finaliseSentence(output));
+                    output = "";
+                }
+            }else{
+                output += aString.charAt(i);
+            }
+        }
+    }
+
+    public static String finaliseSentence(String aSentence){
+        String output = "";
+        for(int i = 0; i < aSentence.length(); i++){
+            if(aSentence.charAt(i) == '.'){
+                output += "";
+            }else{
+                if(i == 0){
+                    output += Character.toUpperCase(aSentence.charAt(i));
+                }else if(i == aSentence.length() - 1){
+                    output += ". ";
+                }else{
+                    output += aSentence.charAt(i);
+                }
+            }
+        }
+        return output;
+    }
+}

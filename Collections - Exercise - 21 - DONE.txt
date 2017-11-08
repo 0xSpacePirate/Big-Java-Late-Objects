@@ -1,0 +1,111 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+//        Write a program that checks whether a sequence of HTML tags is properly nested.
+//        For each opening tag, such as <p>, there must be a closing tag </p>. A tag such as <p>
+//                may have other tags inside, for example
+//                <p> <ul> <li> </li> </ul> <a> </a> </p>
+//        The inner tags must be closed before the outer ones. Your program should process a
+//        file containing tags. For simplicity, assume that the tags are separated by spaces, and
+//        that there is no text inside the tags.
+
+        Exercise21Class exercise21Class = new Exercise21Class();
+        exercise21Class.startEngine();
+
+	}
+}
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Exercise21Class {
+
+    private int[] countH;
+    private int[] countUL;
+    private int[] countLI;
+    private int[] countA;
+    private int[] countDIV;
+
+//                String thePattern = "^(<p> | </p>) | (<ul> | </ul) | (<li> | </li>) | (<ul> | </ul>) | (<a> | </a>) | (<div> | </div>)";
+//                Pattern pattern = Pattern.compile(thePattern);
+//                Matcher matcher = pattern.matcher(scanner.nextLine());
+//                while(matcher.find()){
+//                    System.out.println(matcher.group(0));
+//                }
+
+
+    public Exercise21Class() {
+        this.countH = new int[2];
+        this.countUL = new int[2];
+        this.countLI = new int[2];
+        this.countA = new int[2];
+        this.countDIV = new int[2];
+        startEngine();
+    }
+
+    public void startEngine() {
+        try {
+            Scanner scanner = new Scanner(new File("text.txt"));
+            while (scanner.hasNextLine()) {
+                checkTags(scanner.next());
+
+            }
+
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        checkTagNumber();
+    }
+
+    public void checkTags(String sentence) {
+
+        for (int i = 0; i < sentence.length() - 1; i++) {
+            if (sentence.charAt(i) == '<' && sentence.charAt(i + 1) == 'h') {this.countH[0]++;}
+            if (sentence.charAt(i) == '/' && sentence.charAt(i + 1) == 'h') {this.countH[1]++;}
+
+            if (sentence.charAt(i) == '<' && sentence.charAt(i + 1) == 'u') {this.countUL[0]++;}
+            if (sentence.charAt(i) == '/' && sentence.charAt(i + 1) == 'u') {this.countUL[1]++;}
+
+            if (sentence.charAt(i) == '<' && sentence.charAt(i + 1) == 'l') {this.countLI[0]++;}
+            if (sentence.charAt(i) == '/' && sentence.charAt(i + 1) == 'l') {this.countLI[1]++;}
+
+            if (sentence.charAt(i) == '<' && sentence.charAt(i + 1) == 'a') {this.countA[0]++;}
+            if (sentence.charAt(i) == '/' && sentence.charAt(i + 1) == 'a') {this.countA[1]++;}
+
+            if (sentence.charAt(i) == '<' && sentence.charAt(i + 1) == 'd') {this.countDIV[0]++;}
+            if (sentence.charAt(i) == '/' && sentence.charAt(i + 1) == 'd') {this.countDIV[1]++;}
+        }
+    }
+
+    public void checkTagNumber(){
+        if(this.countH[0] != this.countH[1]){
+            System.out.println("Hs are missing - " + this.countH[0] + " / " + this.countH[1]);
+        }
+        else {System.out.println("Hs are equal!");}
+
+        if(this.countA[0] != this.countA[1]){
+            System.out.println("As are missing - " + this.countA[0] + " / " + this.countA[1]);
+        }
+        else{System.out.println("As are equal!");}
+
+        if(this.countLI[0] != this.countLI[1]){
+            System.out.println("LIs are missing - " + this.countLI[0] + " / " + this.countLI[1]);
+        }
+        else{System.out.println("LI are equal!");}
+
+        if(this.countUL[0] != this.countUL[1]){
+            System.out.println("ULs are missing - " + this.countUL[0] + " / " + this.countUL[1]);
+        }
+        else{System.out.println("UL are equal!");}
+
+        if(this.countDIV[0] != this.countDIV[1]){
+            System.out.println("DIVs are missing - " + this.countDIV[0] + " / " + this.countDIV[1]);
+        }
+        else{System.out.println("DIV are equal!");}
+
+    }
+}

@@ -1,0 +1,68 @@
+package com.bonche;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//•• P 15.9 Write a program that keeps a map in which both keys and
+//        values are strings—the names of students and their course
+//        grades. Prompt the user of the program to add or remove students, to modify grades,
+//        or to print all grades. The printout should be sorted by name and formatted like this:
+//        Carl: B+
+//        Joe: C
+//        Sarah: A
+
+
+        Map<String, String> map = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+        boolean done = false;
+        while(!done){
+            System.out.println("To add a student, press 1");
+            System.out.println("To remove a student, press 2");
+            System.out.println("To modify grades, press 3");
+            System.out.println("To print all grades, press 4");
+            System.out.println("To quit, press 5");
+            System.out.print("Your answer: ");
+            String answer = scanner.next();
+            System.out.println("\n- - - - - - - - - - - - - -");
+            if(answer.equals("1")){
+                System.out.print("Name: ");
+                String name = scanner.next();
+                System.out.print("Grade: ");
+                String grade = scanner.next();
+                map.put(name,grade);
+            }else if(answer.equals("2")){
+                System.out.print("Name of the student: ");
+                String name = scanner.next();
+                if(map.containsKey(name)){
+                    map.remove(name);
+                    System.out.println("Done");
+                }else{
+                    System.out.println("Name not found!");
+                }
+            }else if(answer.equals("3")){
+                System.out.print("Name of the student: ");
+                String name = scanner.next();
+                if(map.containsKey(name)){
+                    System.out.print("Grade: ");
+                    String grade = scanner.next();
+                    map.replace(name,grade);
+                }else{
+                    System.out.println("Name not found!");
+                }
+            }else if(answer.equals("4")){
+                TreeMap<String,String> treeMap = new TreeMap<>(map);
+                for(Map.Entry entry : treeMap.entrySet()){
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                    System.out.println("- - - - - -");
+                }
+            }else{
+                done = true;
+            }
+        }
+    }
+}

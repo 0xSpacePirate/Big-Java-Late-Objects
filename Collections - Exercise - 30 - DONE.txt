@@ -1,0 +1,102 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+        Airport airport = new Airport();
+        airport.addPlane("A", Airport.LANDING);
+        airport.addPlane("B", Airport.TAKEOFF);
+        airport.addPlane("C", Airport.LANDING);
+        airport.addPlane("D", Airport.TAKEOFF);
+        airport.addPlane("E", Airport.LANDING);
+        airport.addPlane("F", Airport.TAKEOFF);
+
+        airport.lookAtSchedule();
+
+        System.out.println("\n- - - - - - - - -\n");
+
+        airport.checkAllPlanes();
+        airport.landing();
+        airport.takeOff();
+        //airport.checkAllPlanes();
+        airport.landing();
+
+        airport.lookAtSchedule();
+
+
+
+
+    }
+}
+
+
+
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Airport {
+    //•• Business P 15.30 An airport has only one runway. When it is busy, planes wishing to take off or land
+//        have to wait. Implement a simulation, using two queues, one each for the planes
+//        waiting to take off and land. Landing planes get priority. The user enters commands
+//        takeoff flightSymbol, land flightSymbol, next, and quit. The first two commands place
+//        the flight in the appropriate queue. The next command finishes the current takeoff or
+//        landing and enables the next one, printing the action (takeoff or land) and the flight
+//        symbol.
+
+
+    // Not using scanner because takes more time and the outcome is the same;
+    private Queue<String> takeOffPlanes;
+    private Queue<String> landingPlanes;
+    public static final int LANDING = 1;
+    public static final int TAKEOFF = 2;
+
+    public Airport(){
+        this.takeOffPlanes = new LinkedList<>();
+        this.landingPlanes = new LinkedList<>();
+    }
+
+    public void addPlane(String aPlane, int destination){
+        if(destination == LANDING ){
+            this.landingPlanes.offer(aPlane);
+            System.out.println(aPlane + " landing plane added.");
+        }else if(destination == TAKEOFF){
+            this.takeOffPlanes.offer(aPlane);
+            System.out.println(aPlane + " takeoff plane added.");
+        }else{
+            System.out.println("Incorrect destination!");
+        }
+    }
+
+    public void takeOff(){
+        System.out.println(this.takeOffPlanes.poll() + " has taken off!");
+    }
+
+    public void landing(){
+        System.out.println(this.landingPlanes.poll() + " has landed!");
+    }
+
+    public void lookAtSchedule(){
+        System.out.println("\n- - - -LANDING - - - -");
+        System.out.println("Next plane that is landing is: " + this.landingPlanes.peek());
+        System.out.println("\n- - - TAKE OFF - - - -");
+        System.out.println("Next plane that is taking off is: " + this.takeOffPlanes.peek());
+    }
+
+    public void checkAllPlanes(){
+        int count = 1;
+        System.out.println("\n- - - -LANDING - - - -");
+        for(String plane : this.landingPlanes){
+            System.out.println(count + ". " + plane);
+            count++;
+        }
+        System.out.println("\n- - - TAKE OFF - - - -");
+        count = 1;
+        for(String plane : this.takeOffPlanes){
+            System.out.println(count + ". " + plane);
+            count++;
+        }
+        System.out.println();
+    }
+}
+

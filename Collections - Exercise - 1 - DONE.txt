@@ -1,0 +1,53 @@
+package com.bonche;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//•• P 15.1 Write a method
+//        public static void downsize(LinkedList<String> employeeNames, int n)
+//        that removes every nth employee from a linked list.
+
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.add("A");
+        linkedList.add("B");
+        linkedList.add("C");
+        linkedList.add("D");
+        linkedList.add("E");
+        linkedList.add("F");
+        linkedList.add("G");
+        linkedList.add("H");
+        linkedList.add("I");
+        linkedList.add("J");
+
+        downsize(linkedList,2);
+
+    }
+
+    public static void downsize(LinkedList<String> employeeNames,int n){
+        printList(employeeNames);
+        for(int i = 1; i < employeeNames.size(); i++){
+            if(i % n == 0){
+                employeeNames.remove(i);
+            }
+        }
+
+        System.out.println("- - - - -REMOVED - - - - -");
+
+        printList(employeeNames);
+    }
+
+    public static void printList(LinkedList<String> list){
+        Iterator<String> iterator = list.iterator();
+        int count = 0;
+        while(iterator.hasNext()){
+            System.out.println( count + ". " + iterator.next());
+                    count++;
+        }
+    }
+}

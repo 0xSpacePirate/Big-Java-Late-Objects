@@ -1,0 +1,83 @@
+package com.bonche;
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//• P 15.6 Implement a to do list. Tasks have a priority between 1 and 9, and a description.
+//        When the user enters the command add priority description, the program adds a new
+//                task. When the user enters next, the program removes and prints the most urgent
+//        task. The quit command quits the program. Use a priority queue in your solution.
+
+        Scanner scanner = new Scanner(System.in);
+        PriorityQueue<TAsk> priorityQueue = new PriorityQueue<>();
+        boolean done = false;
+
+        while (!done) {
+            System.out.println("To add task press 1");
+            System.out.println("To see queue press 2");
+            System.out.println("To implement a task 3");
+            System.out.println("To quit press 4");
+            System.out.print("Press something: ");
+            String answer = scanner.next();
+            System.out.println("- - - - - - - - - -");
+            if (answer.equals("1")) {
+                addTask(priorityQueue);
+            } else if (answer.equals("2")) {
+                priorityQueue.remove();
+            } else if (answer.equals("3")) {
+                printQueue(priorityQueue);
+            } else {
+                done = true;
+            }
+        }
+    }
+
+    public static void addTask(PriorityQueue<TAsk> priorityQueue) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Priority: ");
+        int priority = scanner.nextInt();
+        System.out.print("Description: ");
+        String description = scanner.next();
+        priorityQueue.add(new TAsk(priority, description));
+        System.out.println("- - - - - - - - - -");
+    }
+
+    public static void printQueue(PriorityQueue<TAsk> priorityQueue) {
+        for (TAsk task : priorityQueue) {
+            task.getDescriptionAndPriority();
+            System.out.println("- - - - - - - - - -");
+        }
+    }
+}
+
+
+package com.bonche;
+
+/**
+ * Created by Bonchev on 2/25/2017.
+ */
+public class TAsk implements Comparable<TAsk>{
+
+    private String description;
+    private int priority;
+
+    public TAsk(int priority, String description){
+        this.description = description;
+        this.priority = priority;
+    }
+
+    public void getDescriptionAndPriority(){
+        System.out.println("Priority: " + this.priority);
+        System.out.println("Description: " + this.description);
+    }
+
+    @Override
+    public int compareTo(TAsk task1) {
+        if(task1.priority > 0){return -1;
+        }else if(task1.priority < 0){return 1;
+        }else{return 0;}
+    }
+}

@@ -1,0 +1,52 @@
+package com.bonche;
+
+import sun.reflect.generics.tree.Tree;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+
+//• P 15.13 Insert all words from a large file (such as the novel “War and Peace”, which is available
+//                on the Internet) into a hash set and a tree set. Time the results. Which data
+//        structure is faster?
+
+        HashSet<String> hashSet = new HashSet<>();
+        TreeSet<String> treeSet = new TreeSet<>();
+
+        readFile(hashSet,treeSet);
+
+    }
+
+    public static void readFile(HashSet<String> hashSet, TreeSet<String> treeSet){
+
+        try{
+            Scanner scanner = new Scanner(new File("WarAndPeace.txt"));
+            StopWatch stopWatch = new StopWatch();
+            stopWatch.start();
+            while(scanner.hasNext()){
+                hashSet.add(scanner.next());
+            }
+            stopWatch.stop();
+
+            System.out.println("Hashset time: " + stopWatch.getTime());
+
+            StopWatch stopWatch1 = new StopWatch();
+            stopWatch1.start();
+            while(scanner.hasNext()){
+                treeSet.add(scanner.next());
+            }
+            stopWatch1.stop();
+
+            System.out.println("Treemap time: " + stopWatch1.getTime());
+
+            scanner.close();
+        }catch(FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+    }
+}
+

@@ -1,0 +1,173 @@
+package com.bonche;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Main {
+
+    public static Map<Grade, Student> map = new HashMap<>();
+    public static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+
+    public static Map<String, Student> map = new HashMap<>();
+    public static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+//•• P 15.9 Write a program that keeps a map in which both keys and
+//        values are strings—the names of students and their course
+//        grades. Prompt the user of the program to add or remove students, to modify grades,
+//        or to print all grades. The printout should be sorted by name and formatted like this:
+//        Carl: B+
+//        Joe: C
+//        Sarah: A
+
+
+//        ••• P 15.10 Reimplement Exercise P15.9 so that the keys of the map are objects of class Student.
+//        A student should have a first name, a last name, and a unique integer ID. For grade
+//        changes and removals, lookup should be by ID. The printout should be sorted
+//        by last name. If two students have the same last name, then use the first name as a
+//        tie breaker. If the first names are also identical, then use the integer ID. Hint: Use
+//        two maps.
+
+
+
+        Scanner scanner = new Scanner(System.in);
+        boolean done = false;
+        while(!done){
+            System.out.println("\nTo add a student, press 1");
+            System.out.println("To remove a student, press 2");
+            System.out.println("To modify grades, press 3");
+            System.out.println("To print all grades, press 4");
+            System.out.println("To quit, press 5");
+            System.out.print("Your option: ");
+            String answer = scanner.next();
+            System.out.println("\n- - - - - - - - - - - - - -");
+            if(answer.equals("1")){
+                addStudent();
+            }else if(answer.equals("2")){
+                removeStudent();
+            }else if(answer.equals("3")){
+                modifyGrades();
+            }else if(answer.equals("4")){
+                printStudents();
+            }else if(answer.equals("5")){
+                done = true;
+            }else{
+                System.out.println("You did not select an option!");
+            }
+        }
+    }
+
+    public static void addStudent(){
+
+        System.out.print("Student ID: ");
+        String ID = scanner.next();
+        System.out.print("First name: ");
+        String firstName = scanner.next();
+        System.out.println("Last name: ");
+        String lastName = scanner.next();
+        System.out.print("Grade: ");
+        String grade = scanner.next();
+        map.put(grade,new Student(firstName,lastName,ID));
+    }
+
+    public static void removeStudent(){
+
+        System.out.print("Name or ID of the student: ");
+        String nameOrID = scanner.next();
+        boolean found = false;
+        for(Map.Entry<String, Student> student : map.entrySet()){
+            if(student.getValue().getFirstName().equals(nameOrID) || student.getValue().getID().equals(nameOrID) ){
+                found = true;
+            }
+        }
+        if(found){
+            map.remove(nameOrID);
+            System.out.println("Done\n");
+        }else{
+            System.out.println("Name/ID not found!\n");
+        }
+    }
+
+    public static void modifyGrades(){
+        System.out.print("First and last name of the student: ");
+        String name = scanner.next();
+        String lastName = scanner.next();
+        boolean found = false;
+
+        for(Map.Entry<String,Student> entry : map.entrySet()){
+            if(entry.getValue().getFirstName().equals(name) && entry.getValue().getLastName().equals(lastName)){
+                found = true;
+                map.remove(entry.getKey(),entry.getValue());
+            }
+        }
+        if(found){
+            System.out.print("Grade: ");
+            String grade = scanner.next();
+            System.out.print("New ID: ");
+            String ID = scanner.next();
+            map.put(grade,new Student(name,lastName,ID));
+        }else{
+            System.out.println("Name not found!");
+        }
+    }
+
+    public static void printStudents(){
+        for(Map.Entry<String, Student> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " - " +
+                    entry.getValue().getFirstName() + " " +
+                    entry.getValue().getLastName() + " " +
+                    entry.getValue().getID());
+            System.out.println("- - - - - - - - - - -");
+        }
+    }
+}
+
+
+package com.bonche;
+
+/**
+ * Created by Bonchev on 2/25/2017.
+ */
+public class Student implements Comparable<Student> {
+
+    private String firstName;
+    private String lastName;
+    private String ID;
+
+    public Student(String name, String lastName, String ID){
+        this.firstName = name;
+        this.lastName = lastName;
+        this.ID = ID;
+    }
+
+    public String getFirstName() {return firstName;}
+    public void setFirstName(String firstName) {this.firstName = firstName;}
+    public String getLastName() {return lastName;}
+    public void setLastName(String lastName) {this.lastName = lastName;}
+    public String getID() {return ID;}
+    public void setID(String ID) {this.ID = ID;}
+
+    @Override
+    public int compareTo(Student student) {
+
+        if(this.lastName.compareTo(student.getLastName()) > 0){
+            return -1;
+        }else if(this.lastName.compareTo(student.getLastName()) < 0){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+}

@@ -1,0 +1,42 @@
+package com.bonche;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//• P 15.7 Write a program that reads text from a file and breaks it up into individual words.
+//        Insert the words into a tree set. At the end of the input file, print all words, followed
+//        by the size of the resulting set. This program determines how many unique words a
+//        text file has.
+
+        TreeSet<String> treeSet = new TreeSet<>();
+        readText(treeSet);
+        printArray(treeSet);
+
+    }
+
+    public static void readText(TreeSet<String> treeSet){
+        try {
+            Scanner scanner = new Scanner(new File("a.txt"));
+            while(scanner.hasNext()){
+                treeSet.add(scanner.next());
+            }
+            scanner.close();
+        }catch(FileNotFoundException e){
+            System.out.println("That file is not found!");
+        }
+    }
+
+    public static void printArray(Set<String> set){
+        int count = 0;
+        for(String s : set){
+            System.out.println(s);
+            count++;
+        }
+        System.out.println("Size: " + count);
+    }
+}

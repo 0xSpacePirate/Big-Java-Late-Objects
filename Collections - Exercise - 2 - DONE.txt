@@ -1,0 +1,41 @@
+package com.bonche;
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//        •• P 15.2 Write a method
+//        public static void reverse(LinkedList<String> strings)
+//        that reverses the entries in a linked list.
+
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.add("A");
+        linkedList.add("B");
+        linkedList.add("C");
+        linkedList.add("D");
+        linkedList.add("E");
+        linkedList.add("F");
+        linkedList.add("G");
+        linkedList.add("H");
+        linkedList.add("I");
+        linkedList.add("J");
+
+
+        reverse(linkedList);
+    }
+
+    public static void reverse(LinkedList<String> strings){
+        printList(strings);
+        System.out.println("- - - - - -");
+        Collections.reverse(strings);
+        printList(strings);
+    }
+
+    public static void printList(List<String> list){
+        for(int i = 0; i < list.size(); i++){
+            System.out.println( (i + 1) + ". " + list.get(i));
+        }
+    }
+}

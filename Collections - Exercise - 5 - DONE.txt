@@ -1,0 +1,100 @@
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ParkingSpaces parkingSpaces = new ParkingSpaces();
+        parkingSpaces.addCar("A");
+        parkingSpaces.addCar("B");
+        parkingSpaces.addCar("C");
+        parkingSpaces.addCar("D");
+        parkingSpaces.addCar("E");
+        parkingSpaces.addCar("F");
+
+        System.out.println("- - - - -");
+        parkingSpaces.listCars();
+
+        System.out.println("- - - - -");
+
+        parkingSpaces.removeCar("E");
+        System.out.println("- - - - -");
+        parkingSpaces.listCars();
+
+        System.out.println("- - - - - - - -");
+        parkingSpaces.nextPeek();
+        System.out.println("- - - - - - - -");
+        parkingSpaces.listCars();
+        parkingSpaces.removeNext();
+
+
+    }
+}
+
+
+import java.util.Stack;
+import java.util.regex.Pattern;
+
+public class ParkingSpaces {
+
+    //•• P 15.5 A homeowner rents out parking spaces in a driveway during special events. The
+//        driveway is a “last-in, first-out” stack. Of course, when a car owner retrieves a
+//        vehicle that wasn’t the last one in, the cars blocking it must temporarily move to
+//        the street so that the requested vehicle can leave. Write a program that models this
+//        behavior, using one stack for the driveway and one stack for the street. Use integers
+//        as license plate numbers. Positive numbers add a car, negative numbers remove a car,
+//        zero stops the simulation. Print out the stack after each operation is complete.
+
+    private Stack<String> cars;
+
+    public ParkingSpaces(){
+        this.cars = new Stack<>();
+    }
+
+    public void addCar(String car){
+        this.cars.push(car);
+        System.out.println(car + " added!");
+    }
+
+    public void removeNext(){
+        System.out.println(this.cars.pop() + " has been removed!");
+    }
+
+    public void nextPeek(){
+        System.out.println("Next car is: " + this.cars.peek());
+    }
+
+    public void removeCar(String car){
+        if(this.cars.contains(car)) {
+            System.out.println(makeWay(car));
+            this.cars.remove(car);
+            System.out.println(car + " is out!");
+        }else{
+            System.out.println(car + " not found!");
+        }
+    }
+
+    public void listCars(){
+        for(int i = 0; i < this.cars.size();i++){
+            System.out.println((i + 1) + ". " + this.cars.get(i));
+        }
+    }
+
+    public StringBuilder makeWay(String car){
+        int carPosition;
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0; i < this.cars.size();i++){
+            if(this.cars.get(i).equals(car)){
+                carPosition = i;
+                if(carPosition > 0) {
+                    for (int j = this.cars.size() - 1; j > carPosition; j--) {
+                        stringBuilder.append(this.cars.get(j) + " made way for " + car + "\n");
+                    }
+                }else {
+                    stringBuilder.append("The car was first in line!");
+                }
+            }
+        }
+
+        return stringBuilder;
+    }
+}

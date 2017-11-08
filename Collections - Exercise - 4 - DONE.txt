@@ -1,0 +1,40 @@
+package com.bonche;
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//• P 15.4 Your task is to break a number into its individual digits, for example, to turn 1729
+//        into 1, 7, 2, and 9. It is easy to get the last digit of a number n as n % 10. But that gets
+//        the numbers in reverse order. Solve this problem with a stack. Your program should
+//        ask the user for an integer, then print its digits separated by spaces.
+
+        Scanner scanner = new Scanner(System.in);
+        boolean done = false;
+        while(!done) {
+            System.out.print("Type your number: ");
+            String number = scanner.next();
+            if(!breakANumber(number)){
+                done = true;
+            }
+        }
+    }
+
+    public static boolean breakANumber(String number){
+
+        try {
+            int aNumber = Integer.parseInt(number);
+            System.out.println("Number: " + aNumber);
+            for(int i = 0; i < number.length(); i++){
+                System.out.print(number.charAt(i) + " ");
+            }
+            return false;
+        }catch(NumberFormatException e){
+            System.out.println("Type a number!");
+
+        }
+        return true;
+    }
+}
