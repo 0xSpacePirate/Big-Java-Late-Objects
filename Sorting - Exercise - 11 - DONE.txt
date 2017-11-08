@@ -8,10 +8,10 @@ import java.lang.Object;
 public class Main {
     public static void main(String[] args) {
 
-//• P14.11 Implement the radix sort algorithm described in Exercise R14.20 to sort arrays of
+//â€¢ P14.11 Implement the radix sort algorithm described in Exercise R14.20 to sort arrays of
 //        numbers between 0 and 999.
 
-//•• P14.20 Sort an array list of strings by increasing length. Hint: Supply a Comparator.
+//â€¢â€¢ P14.20 Sort an array list of strings by increasing length. Hint: Supply a Comparator.
 
         int[] array = new int[10];
         generateArray(array);
