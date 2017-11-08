@@ -1,0 +1,67 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+//•• P 7.10 Get the data for names in prior decades from the Social Security Administration.
+//        Paste the table data in files named babynames80s.txt, etc. Modify the worked_example_1/
+//        BabyNames.java program so that it prompts the user for a file name. The numbers in
+//        the files have comma separators, so modify the program to handle them. Can you
+//        spot a trend in the frequencies?
+        String fileName = "topNames.txt";
+        printNames(fileName,readFile(args[0]));
+    }
+
+
+		/** I do not understand the question properly*/
+
+    public static ArrayList<String> readFile(String fileName){
+        ArrayList<String> names = new ArrayList<>();
+        try {
+            Scanner inFile = new Scanner(new File(fileName));
+            String word = "";
+
+            while (inFile.hasNext()) {
+                String nextFile = inFile.next();
+                for (int i = 0; i < nextFile.length(); i++) {
+                    if (nextFile.charAt(i) != '.') {
+                        word += nextFile.charAt(i);
+                    }
+                }
+
+                names.add(word);
+                word = "";
+            }
+            inFile.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+
+        return names;
+    }
+
+
+    public static void printNames(String newFileName, ArrayList<String> names){
+        try{
+            PrintWriter printWriter = new PrintWriter(new File(newFileName));
+            printWriter.println("Most used names in 80s");
+            int count = 0;
+            for(String word : names){
+                if(count % 2 == 0) {
+                    printWriter.print(word + " ");
+                }else{
+                    printWriter.print(word + " \n");
+                }
+                count++;
+            }
+
+            printWriter.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+    }
+}

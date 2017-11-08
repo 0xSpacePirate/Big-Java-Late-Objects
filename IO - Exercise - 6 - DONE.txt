@@ -1,0 +1,52 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//        Write a program Find that searches all files specified on the command line and prints
+//        out all lines containing a specified word. For example, if you call
+//        java Find ring report.txt address.txt Homework.java
+//        then the program might print
+//        report.txt: has broken up an international ring of DVD bootleggers that
+//        address.txt: Kris Kringle, North Pole
+//        address.txt: Homer Simpson, Springfield
+//        Homework.java: String filename;
+//        The specified word is always the first command line argument.
+
+        String x= args[0];
+
+        for(int i = 0; i < args.length; i++){
+            printWord(x,args[i]);
+        }
+
+    }
+
+    public static boolean findWord(String line, String word){
+
+        for(int i = 0; i < line.length() - word.length(); i++){
+            if(line.substring(i, i + word.length()).equals(word)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void printWord(String theWord, String nameOfTheFile){
+
+        try{
+            Scanner scanner = new Scanner(new File(nameOfTheFile));
+            while(scanner.hasNextLine()){
+                String theLine = scanner.nextLine();
+                if(findWord(theLine,theWord)){
+                    System.out.println("Line: " + theLine + " - file: " + nameOfTheFile );
+                }
+            }
+        }catch (FileNotFoundException e){
+            System.out.println("File no found");
+        }
+    }
+}

@@ -1,0 +1,39 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//        Repeat Exercise P7.2, but allow the user to specify the file name on the command line.
+//                If the user doesn’t specify any file name, then prompt the user for the name.
+
+        Scanner scanner = new Scanner(System.in);
+        String inputFile = null;
+        if(args.length == 1){
+            inputFile = args[0];
+        }else{
+            System.out.print("Input file name: ");
+            inputFile = scanner.next();
+        }
+
+        System.out.print("Output file name: ");
+        String outputFile = scanner.next();
+
+
+        try {
+            int count = 1;
+            Scanner scanner1 = new Scanner(new File(inputFile));
+            PrintWriter printWriter = new PrintWriter(outputFile);
+            while (scanner1.hasNext()) {
+                printWriter.println("/* " + count + " */ " + scanner1.nextLine());
+                count++;
+            }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR!");
+        }
+    }
+}

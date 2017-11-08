@@ -1,0 +1,65 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//        Write a program that asks the user for a file name and prints the number of characters,
+//                words, and lines in that file.
+
+        try {
+            PrintWriter printWriter = new PrintWriter(new File("c.txt"));
+            printWriter.println("Kakv0 st1v1 v3, typ3 t3xt so it countS");
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.println("IO exception!");
+            e.printStackTrace();
+        }
+
+        System.out.println("DONE");
+        System.out.println("-   -   -");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input file name: ");
+        String inputFile = scanner.next();
+
+        try {
+            Scanner scanner1 = new Scanner(new File(inputFile));
+            int characters = 0;
+            
+            while (scanner1.hasNextLine()) {
+                String aLineChar = scanner1.nextLine();
+                characters += aLineChar.length();
+            }
+            System.out.println("\nWords: " + countWords(inputFile));
+            System.out.println("Letters: " + characters);
+            System.out.println("Lines: " + countLines(inputFile));
+
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR!");
+        }
+    }
+
+    public static int countWords(String fileName) throws FileNotFoundException{
+        int words = 0;
+        Scanner scanner = new Scanner(new File(fileName));
+        while(scanner.hasNext()){
+            String aWord = scanner.next();
+            words++;
+        }
+        return words;
+    }
+
+    public static int countLines(String fileName) throws FileNotFoundException{
+        int lines = 0;
+        Scanner scanner = new Scanner(new File(fileName));
+        while(scanner.hasNextLine()){
+            String aLine = scanner.nextLine();
+            lines++;
+        }
+        return lines;
+    }
+}

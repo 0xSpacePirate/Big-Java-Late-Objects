@@ -1,0 +1,40 @@
+package com.bonche;
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+//•• P 7.13 Write a program that asks the user to input a set of floating-point values. When the
+//        user enters a value that is not a number, give the user a second chance to enter the
+//        value. After two chances, quit reading input. Add all correctly specified values and
+//        print the sum when the user is done entering data. Use exception handling to detect
+//        improper inputs.
+
+        double theTotal = values();
+        System.out.println("TOTAL: " + theTotal);
+
+    }
+
+    public static double values(){
+        Scanner scanner = new Scanner(System.in);
+        int count = 0;
+        double total = 0;
+        while(count < 2) {
+            try {
+                System.out.print("Enter a floating point number: ");
+                double number = scanner.nextDouble();
+                total += number;
+            } catch (InputMismatchException e) {
+                System.out.println("That was not a floating point value!\n");
+                String aNumber = scanner.next();
+                count++;
+                }
+            }
+        return Math.round(total);
+    }
+}

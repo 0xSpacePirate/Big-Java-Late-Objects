@@ -1,0 +1,44 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//•• P 7.7 Write a program that checks the spelling of all words in a file. It should read each
+//        word of a file and check whether it is contained in a word list. A word list is available
+//        on most Linux systems in the file /usr/share/dict/words. (If you don’t have access
+//        to a Linux system, your instructor should be able to get you a copy.) The program
+//        should print out all words that it cannot find in the word list.
+
+        String words = args[0];
+        String dictionary = args[1];
+
+        ArrayList<String> dictionaryWords = checkWords(dictionary);
+        ArrayList<String> wordsList = checkWords(words);
+
+        System.out.println("Words that are not in the dictionary: ");
+        for(String word : wordsList){
+            if(!dictionaryWords.contains(word)) {
+                System.out.println(word + " is not in the dictionary!");
+            }
+        }
+    }
+
+    public static ArrayList<String> checkWords(String fileName){
+        ArrayList<String> words = new ArrayList<>();
+        try{
+            Scanner scanner = new Scanner(new File(fileName));
+            while(scanner.hasNext()){
+                words.add(scanner.next());
+            }
+            scanner.close();
+        }catch (IOException e){
+            System.out.println("Exception!");
+        }
+        return words;
+    }
+}

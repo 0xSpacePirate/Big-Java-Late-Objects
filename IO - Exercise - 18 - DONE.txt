@@ -1,0 +1,89 @@
+package com.bonche;
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static ArrayList<Double> items = new ArrayList<>();
+
+    public static void main(String[] args) {
+
+//•• Business P 7.18 A store owner keeps a record of daily cash transactions in a text file. Each line
+//        contains three items: The invoice number, the cash amount, and the letter P if the
+//        amount was paid or R if it was received. Items are separated by spaces. Write a program
+//        that prompts the store owner for the amount of cash at the beginning and end
+//        of the day, and the name of the file. Your program should check whether the actual
+//        amount of cash at the end of the day equals the expected value.
+
+
+        addItem(4.23);
+        addItem(12.43);
+        addItem(5.67);
+        addItem(7.98);
+        addItem(15.66);
+        addItem(9.48);
+        readFile(createCashTransactionFile());
+
+    }
+
+    public static void addItem(double item){
+        items.add(item);
+    }
+
+    public static String createCashTransactionFile(){
+        double total = 0;
+        double expected = 0;
+        String fileName = "cashTransactions.txt";
+
+        try {
+            PrintWriter printWriter = new PrintWriter(new File(fileName));
+            if(items != null) {
+                for (int i = 0; i < items.size(); i++) {
+                    int invoiceNumber = (int) (Math.random() * 10000000);
+                    if(i % 3 == 0) {
+                        printWriter.print(items.get(i) + "-R" + invoiceNumber + " ");
+                        total += items.get(i);
+                    }else{
+                        printWriter.print(items.get(i) + "-P" + invoiceNumber + " ");
+                        expected += items.get(i);
+                    }
+                }
+            }else{
+                System.out.println("No items");
+            }
+
+            printWriter.println("--------------");
+            printWriter.printf("PAID:%.2f", total);
+            printWriter.printf("\nEXPECTED:%.2f\n", expected);
+            printWriter.println("==============");
+            printWriter.printf("TOTAL:%.2f", total + expected);
+
+            printWriter.close();
+
+        }catch(FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+
+        return fileName;
+    }
+
+    public static void readFile(String fileName){
+        try{
+            Scanner scanner = new Scanner(new File(fileName));
+            scanner.useDelimiter(" ");
+            while(scanner.hasNext()){
+                System.out.println(scanner.next());
+            }
+
+            scanner.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+    }
+}

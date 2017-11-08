@@ -1,0 +1,117 @@
+package com.bonche;
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static ArrayList<String> urls = new ArrayList<>();
+
+    public static void main(String[] args) {
+
+//•• Business P 7.16 A hotel salesperson enters sales in a text file. Each line contains the following,
+//           separated by semicolons: The name of the client, the service sold (such as Dinner,
+//           Conference, Lodging, and so on), the amount of the sale, and the date of that event.
+//           Write a program that reads such a file and displays the total amount for each service
+//           category. Display an error if the file does not exist or the format is incorrect.
+
+       services();
+    }
+
+    public static void sales(String clientName, String service) {
+
+        String firstFileName = "conference.txt";
+        String secondFileName = "lodging.txt";
+        String thirdFileName = "dinner.txt";
+
+        final double conferenceAmount = 44.23;
+        final double lodgingAmount = 51.98;
+        final double dinnerAmount = 28.49;
+
+        int day = (int) (Math.random() * 32 + 1);
+        int month = (int) (Math.random() * 13 + 1);
+        int year = (int) (Math.random() * 4 + 2017);
+
+        try {
+
+            PrintWriter conferenceWriter = new PrintWriter(new File(firstFileName));
+            PrintWriter lodgingWriter = new PrintWriter(new File(secondFileName));
+            PrintWriter dinnerWriter = new PrintWriter(new File(thirdFileName));
+
+            System.out.println("- - - - - - - -");
+            if (service.equals("1")) {
+                conferenceWriter.println("Name:" + clientName);
+                conferenceWriter.println("Service:Conference");
+                conferenceWriter.println("Price:" + conferenceAmount);
+                conferenceWriter.println("Date:" + day + "/" + month + "/" + year);
+            }
+            if (service.equals("2")) {
+                lodgingWriter.println("Name:" + clientName);
+                lodgingWriter.println("Service:Conference");
+                lodgingWriter.println("Price:" + lodgingAmount);
+                lodgingWriter.println("Date:" + day + "/" + month + "/" + year);
+            }
+            if (service.equals("3")) {
+                dinnerWriter.println("Name:" + clientName);
+                dinnerWriter.println("Service:Conference");
+                dinnerWriter.println("Price:" + dinnerAmount);
+                dinnerWriter.println("Date:" + day + "/" + month + "/" + year);
+            }
+
+            conferenceWriter.close();
+            lodgingWriter.close();
+            dinnerWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("IO exception!");
+        }
+
+        readFile(firstFileName,secondFileName,thirdFileName);
+    }
+
+    public static void services(){
+        Scanner scanner = new Scanner(System.in);
+        boolean done = false;
+        while(!done) {
+            System.out.println("Press 4 to QUIT!");
+            System.out.print("Client's name: ");
+            String name = scanner.next();
+            if(name.equals("4")){done = true;}
+            System.out.println("Services: \n1.Conference\n2.Lodging\n3.Dinner");
+            System.out.print("Your option: ");
+            String service = scanner.next();
+            if (service.equals("1") || service.equals("2") || service.equals("3")) {
+                sales(name, service);
+            } else {
+                System.out.println("Invalid input!");
+            }
+        }
+    }
+
+    public static void readFile(String fileName, String secondFileName, String thirdFileName){
+
+        try {
+            Scanner scanner = new Scanner(new File(fileName));
+            Scanner scanner1 = new Scanner(new File(secondFileName));
+            Scanner scanner2 = new Scanner(new File(thirdFileName));
+
+            scanner.useDelimiter(" ");
+            scanner1.useDelimiter(" ");
+            scanner2.useDelimiter(" ");
+
+            while (scanner.hasNext()) {System.out.println(scanner.next());}
+            while (scanner1.hasNext()) {System.out.println(scanner1.next());}
+            while (scanner2.hasNext()) {System.out.println( scanner2.next());}
+
+            System.out.println("- - - - - - - -");
+
+        }catch(FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+    }
+}

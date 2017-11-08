@@ -1,0 +1,50 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//        Write a program that reads a file containing two columns of floating-point numbers.
+//                Prompt the user for the file name. Print the average of each column.
+
+        try {
+            PrintWriter printWriter = new PrintWriter(new File("Numbers.txt"));
+            for(int i = 0 ; i < 4; i++){
+                for(int j = 0 ; j < 4; j++){
+                    printWriter.println((int) (Math.random() * 100 + 1));
+                }
+            }
+            printWriter.close();
+        } catch (IOException e){
+            System.out.println("IO exception!");
+            e.printStackTrace();
+        }
+
+        System.out.println("Numbers are written!");
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Input file name: ");
+        String inputFile = scanner.next();
+
+        try {
+            Scanner scanner1 = new Scanner(new File(inputFile));
+            double sumCol1 = 0;
+            double sumCol2 = 0;
+            int count = 0;
+            while(scanner1.hasNext()){
+                if(count % 2 == 0){sumCol1 += scanner1.nextInt();
+                }else{sumCol2 += scanner1.nextInt();}
+                count++;
+            }
+
+            System.out.println("\nColumn 1: " + sumCol1 / count);
+            System.out.println("Column 2: " + sumCol2 / count);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR!");
+        }
+    }
+}

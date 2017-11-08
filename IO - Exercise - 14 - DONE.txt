@@ -1,0 +1,38 @@
+package com.bonche;
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+//•• P 7.14 Using the mechanism described in Special Topic 7.1, write a program that reads all
+//        data from a web page and writes them to a file. Prompt the user for the web page
+//        URL and the file.
+
+        try {
+            String address = "https://en.wikipedia.org/wiki/Main_Page";
+            URL pageLocation = new URL(address);
+            Scanner scanner = new Scanner(pageLocation.openStream());
+            scanner.useDelimiter("/>");
+            PrintWriter printWriter = new PrintWriter(new File("webpage.txt"));
+            while(scanner.hasNext()){
+                String nextItem = scanner.next();
+                printWriter.println(nextItem);
+            }
+            scanner.close();
+            printWriter.close();
+        }catch(MalformedURLException e){
+            System.out.println("Page not found!");
+        }catch(IOException e){
+            System.out.println("Exception found!");
+        }
+
+    }
+}

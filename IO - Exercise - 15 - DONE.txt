@@ -1,0 +1,83 @@
+package com.bonche;
+
+import java.io.*;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static ArrayList<String> urls = new ArrayList<>();
+
+    public static void main(String[] args) {
+
+//•• P 7.14 Using the mechanism described in Special Topic 7.1, write a program that reads all
+//        data from a web page and writes them to a file. Prompt the user for the web page
+//        URL and the file.
+
+        printLinksInFile();
+        printLinks();
+
+    }
+
+    public static void printLinks(){
+        int count = 1;
+        for(String link : urls){
+            System.out.println(count + ". " + link);
+            count++;
+        }
+    }
+
+    public static void printLinksInFile(){
+        try {
+            String address = "https://en.wikipedia.org/wiki/Main_Page";
+            URL pageLocation = new URL(address);
+            Scanner scanner = new Scanner(pageLocation.openStream());
+            PrintWriter printWriter = new PrintWriter(new File("webpage.txt"));
+            while(scanner.hasNext()){
+                printWriter.println(linksFinder(scanner));
+                urls.add(linksFinder(scanner));
+            }
+            scanner.close();
+            printWriter.close();
+        }catch(MalformedURLException e){
+            System.out.println("Page not found!");
+        }catch(IOException e){
+            System.out.println("Exception found!");
+        }
+
+    }
+
+    public static String linkGenerator(Scanner scanner){
+        scanner.useDelimiter("<a href=\"");
+        if(scanner.hasNext()){
+            String previous = scanner.next();
+            scanner.useDelimiter("\">");
+            if(scanner.hasNext()){
+                String link = scanner.next();
+                scanner.useDelimiter("</a>");
+                String afterLinkText = scanner.next();
+                return link + afterLinkText + "</a>";
+            }
+        }
+        return null;
+    }
+
+    public static String linksFinder(Scanner scanner){
+        scanner.useDelimiter("<a href=\"");
+        if(scanner.hasNext()){
+            String previous = scanner.next();
+            scanner.useDelimiter("\">");
+            if(scanner.hasNext()){
+                String link = scanner.next();
+                scanner.useDelimiter("</a>");
+                String afterLinkText = scanner.next();
+                return link.substring(9);
+            }
+        }
+        return null;
+    }
+}

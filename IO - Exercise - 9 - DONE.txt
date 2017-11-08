@@ -1,0 +1,70 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+    //•• P 7.9 Write a program that reads each line in a file, reverses its lines, and writes them to
+    //        another file. For example, if the file input.txt contains the lines
+
+    //        Mary had a little lamb
+    //        Its fleece was white as snow
+    //        And everywhere that Mary went
+    //        The lamb was sure to go.
+
+    //        and you run
+    //        reverse input.txt output.txt
+    //        then output.txt contains
+
+//        The lamb was sure to go.
+//        And everywhere that Mary went
+//        Its fleece was white as snow
+//        Mary had a little lamb
+
+        String newFile = "newFile.txt";
+        printFile(newFile,reverse(readFromFile(args[0])));
+
+
+    }
+
+    public static ArrayList<String> readFromFile(String fileName){
+        ArrayList<String> sentences = new ArrayList<>();
+        try{
+            Scanner inFile = new Scanner(new File(fileName));
+            while(inFile.hasNextLine()){
+                sentences.add(inFile.nextLine());
+            }
+
+            inFile.close();
+
+        }catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+
+        return sentences;
+    }
+
+    public static void printFile(String fileName, ArrayList<String> list){
+        try {
+            PrintWriter printWriter = new PrintWriter(new File(fileName));
+            for(String sentences : list){
+                printWriter.println(sentences);
+            }
+            printWriter.close();
+        }catch (IOException e){
+            System.out.println("Exception!");
+        }
+    }
+
+    public static ArrayList<String> reverse(ArrayList<String> sentences){
+        ArrayList<String> reversedSentences = new ArrayList<>();
+        for(int i = sentences.size() -1; i >= 0; i--){
+            reversedSentences.add(sentences.get(i));
+        }
+
+        return reversedSentences;
+    }
+}

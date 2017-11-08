@@ -1,0 +1,75 @@
+package com.bonche;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+//        Write a program that replaces each line of a file with its reverse. For example, if you
+//                run
+//        java Reverse HelloPrinter.java
+//        then the contents of HelloPrinter.java are changed to
+//        retnirPolleH ssalc cilbup
+//        {
+//        )sgra ][gnirtS(niam diov citats cilbup
+//        {
+//        wodniw elosnoc eht ni gniteerg a yalpsiD //
+//        ;)"!dlroW ,olleH"(nltnirp.tuo.metsyS
+//        }
+//        }
+//        Of course, if you run Reverse twice on the same file, you get back the original file.
+
+        /** To make sure the name of the file is within args*/
+        for(int i = 0; i < args[0].length(); i++){
+            System.out.print(args[0].charAt(i));
+        }
+
+        ArrayList<String> arrayList = wordsList(args[0]);
+        reverseAllWords(arrayList);
+        display(args[0],arrayList);
+
+    }
+
+    public static ArrayList<String> wordsList(String theFile){
+        ArrayList<String> words = new ArrayList<>();
+        try{
+            Scanner scanner = new Scanner(new File(theFile));
+            while(scanner.hasNextLine()){
+                words.add(scanner.nextLine());
+            }
+            scanner.close();
+        }catch (FileNotFoundException e){
+            System.out.println(theFile + " not found!");
+        }
+        return words;
+    }
+
+    public static String reverse(String line){
+        String reversedLine = "";
+        for(int i = line.length() -1; i >= 0 ;i--){
+            reversedLine += line.charAt(i);
+        }
+        return reversedLine;
+    }
+
+    public static void reverseAllWords(ArrayList<String> arrayList){
+        for(int i = 0; i < arrayList.size(); i++){
+            arrayList.set(i, reverse(arrayList.get(i)));
+        }
+    }
+
+    public static void display(String theName, ArrayList<String> list){
+        try {
+            PrintWriter printWriter = new PrintWriter(theName);
+            for(String word: list){
+                printWriter.println(word);
+            }
+            printWriter.close();
+
+        }catch(IOException e){
+            System.out.println("Ops, Exception!");
+        }
+    }
+}
